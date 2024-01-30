@@ -18,6 +18,9 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	implementation 'org.springframework.security:spring-security-oauth2-client:6.2.1'
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.2.2'
+
 }
 
 tasks.named('test') {
