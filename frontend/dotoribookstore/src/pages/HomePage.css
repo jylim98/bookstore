@@ -1,6 +1,10 @@
 .home-page {
     background-color: #f0f0f0;
-    padding: 20px;
+    background-image: url(../../public/winter_train.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: auto;
+    height: 100vh;
   }
 
   img {

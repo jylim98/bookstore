@@ -1,11 +1,11 @@
 // HomePage.js
 import React from 'react';
 import './HomePage.css';
-import './fadeinbox.css';
+import '../animation/fadeinbox.css';
 
 const HomePage = () => {
   return (
-    <div>
+    <div className='home-page'>
       <div className='fade-in-box'>
         <h1>Welcome to the Home Page</h1>
         <p>This is the content of the home page.</p>
