@@ -6,14 +6,19 @@ import '../animation/fadeinbox.css';
 const HomePage = () => {
   return (
     <div className='home-page'>
-      <div className='fade-in-box'>
-        <h1>Welcome to the Home Page</h1>
-        <p>This is the content of the home page.</p>
-        {/* 추가적인 컴포넌트, 기능 등 */}
+
+      <div className='fade-in-box' style={{ display: 'flex', justifyContent: 'start'}}>
+        <h1>눈이 올까요</h1>
       </div>
-      <div>
+
+      <div className='fade-in-box' style={{ animation : 'fadein 7s', display: 'flex', justifyContent: 'end' }}>
+        <h3>우리 자는 동안에</h3>
+      </div>
+
+      {/* <div>
         <img src='/winter_forest.jpg' alt="winter_forest"/>
-      </div>
+      </div> */}
+
     </div>
   );
 };
