@@ -1,0 +1,16 @@
+.home-page {
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+
+  img {
+  max-width: 100%; /* 부모 요소의 너비에 맞게 이미지 크기 조절 */
+  height: auto; /* 가로 세로 비율을 유지하면서 크기 조절 */
+}
+
+/* 미디어 쿼리를 사용하여 화면 크기에 따라 이미지 크기 조절 */
+@media (min-width: 768px) {
+  img {
+    max-width: 50%; /* 화면 너비가 768px 이상일 때 이미지 크기 조절 */
+  }
+}
