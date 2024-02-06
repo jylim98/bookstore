@@ -1,6 +1,9 @@
-package com.example.book.oauth.common.domain;
+package com.example.book.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor

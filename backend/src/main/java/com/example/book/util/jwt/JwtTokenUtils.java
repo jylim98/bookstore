@@ -1,7 +1,6 @@
-package com.example.book.oauth.common.utils;
+package com.example.book.util.jwt;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -13,18 +12,18 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtTokenProvider {
+public class JwtTokenUtils {
 
     private final Key key;
 
-    public JwtTokenProvider(@Value("${jwt.secret-key}") String secretKey) {
+    public JwtTokenUtils(@Value("${jwt.secret-key}") String secretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
     /**
-     * JWT 토큰생성
-     * @param subject - 사용자 정보
+     * JWT 토큰 생성
+     * @param subject - 사용자
      * @param expiredAt - 만료기간
      * @return - JWT 토큰
      */
@@ -33,13 +32,13 @@ public class JwtTokenProvider {
                 .setSubject(subject)
                 .setExpiration(expiredAt)
                 .signWith(key, SignatureAlgorithm.HS512)
-                .compact();
+                . compact();
     }
 
     /**
-     * JWT 토큰에서 사용자 정보 추출
-     * @param accessToken - JWT 토큰
-     * @return - 사용자정보
+     * 사용자 정보 추출
+     * @param accessToken - 엑세스 토큰
+     * @return - 사용자 정보
      */
     public String extractSubject(String accessToken) {
         Claims claims = parseClaims(accessToken);
@@ -47,19 +46,15 @@ public class JwtTokenProvider {
     }
 
     /**
-     * JWT 토큰 디코딩
+     * JWT 토큰 파싱
      * @param accessToken - JWT 토큰
-     * @return - JWT 페이로드
+     * @return - 클레임
      */
     public Claims parseClaims(String accessToken) {
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(accessToken)
-                    .getBody();
-        } catch (ExpiredJwtException e) {
-            return e.getClaims();
-        }
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(accessToken)
+                .getBody();
     }
 }
