@@ -1,3 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://localhost:3306/bookstore
+    username: root
+    password: root
+
+mybatis:
+  mapper-locations: classpath:/mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
 oauth:
   kakao:
     client_id: 3c74a5584f931b80b80464d2cd6c09bd
