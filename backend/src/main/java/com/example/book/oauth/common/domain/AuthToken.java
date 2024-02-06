@@ -1,10 +1,10 @@
-package com.example.book.oauth;
+package com.example.book.oauth.common.domain;
 
 import lombok.*;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString
 public class AuthToken {
 
     private String accessToken;

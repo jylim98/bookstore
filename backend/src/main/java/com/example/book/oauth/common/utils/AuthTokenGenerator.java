@@ -1,5 +1,6 @@
-package com.example.book.oauth;
+package com.example.book.oauth.common.utils;
 
+import com.example.book.oauth.common.domain.AuthToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

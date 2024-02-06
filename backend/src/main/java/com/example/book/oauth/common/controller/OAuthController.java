@@ -1,5 +1,7 @@
-package com.example.book.oauth;
+package com.example.book.oauth.common.controller;
 
+import com.example.book.oauth.common.service.OAuthService;
+import com.example.book.oauth.common.domain.OAuthMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ public class OAuthController {
     }
 
     @PostMapping("kakao/user")
-    public OAuthUser userDetails(@RequestParam(name = "authorizationCode") String authorizationCode) throws IOException, InterruptedException {
+    public OAuthMember userDetails(@RequestParam(name = "authorizationCode") String authorizationCode) throws IOException, InterruptedException {
         return oAuthService.getUserInfo(authorizationCode);
     }
 }

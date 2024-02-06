@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.book.oauth.kakao.mapper.MemberMapper">
+
+    <select id="selectMember" parameterType="long" resultType="com.example.book.oauth.common.domain.OAuthMember">
+        select * from member where id = #{id}
+    </select>
+
+    <insert id="insertMember" parameterType="com.example.book.oauth.common.domain.OAuthMember">
+        insert into member (email, nickname, profile_image_url) values (#{email}, #{nickname}, #{profileImageUrl});
+    </insert>
+
+</mapper>

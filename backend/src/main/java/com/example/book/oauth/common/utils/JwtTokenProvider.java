@@ -1,4 +1,4 @@
-package com.example.book.oauth;
+package com.example.book.oauth.common.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

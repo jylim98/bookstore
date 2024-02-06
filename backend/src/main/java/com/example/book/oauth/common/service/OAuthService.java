@@ -1,4 +1,6 @@
-package com.example.book.oauth;
+package com.example.book.oauth.common.service;
+
+import com.example.book.oauth.common.domain.OAuthMember;
 
 import java.io.IOException;
 
@@ -16,5 +18,5 @@ public interface OAuthService {
      * @param accessToken - 엑세스 토큰
      * @return - 사용자 정보
      */
-    OAuthUser getUserInfo(String accessToken) throws IOException, InterruptedException;
+    OAuthMember getUserInfo(String accessToken) throws IOException, InterruptedException;
 }
