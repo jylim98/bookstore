@@ -21,7 +21,7 @@ public class OAuthController {
     }
 
     @PostMapping("kakao/user")
-    public OAuthUser userSelect(@RequestParam(name = "authorizationCode") String authorizationCode) throws IOException, InterruptedException {
+    public OAuthUser userDetails(@RequestParam(name = "authorizationCode") String authorizationCode) throws IOException, InterruptedException {
         return oAuthService.getUserInfo(authorizationCode);
     }
 }

@@ -3,6 +3,7 @@ package com.example.book.oauth.kakao;
 import com.example.book.oauth.OAuthService;
 import com.example.book.oauth.OAuthUser;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,18 +15,25 @@ import java.net.http.HttpResponse;
 @Service
 public class KakaoService implements OAuthService {
 
-    private static final String CLIENT_ID = "3c74a5584f931b80b80464d2cd6c09bd";
+
+    @Value("${oauth.kakao.client_id}")
+    private String CLIENT_ID;
+
+    @Value("${oauth.kakao.token_url}")
+    private String TOKEN_URL;
+
+    @Value("${oauth.kakao.api_url}")
+    private String API_URL;
 
     @Override
     public String createToken(String code) throws IOException, InterruptedException {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://kauth.kakao.com/oauth/token"))
+                .uri(URI.create(TOKEN_URL))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(
                         "grant_type=" + "authorization_code" +
                                 "&client_id=" + CLIENT_ID +
-//                                "&redirect_uri=" + kakaoRedirectUri +
                                 "&code=" + code
                 ))
                 .build();
@@ -42,7 +50,7 @@ public class KakaoService implements OAuthService {
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://kapi.kakao.com/v2/user/me"))
+                .uri(URI.create(API_URL))
                 .header("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
                 .header("Authorization", "Bearer " + accessToken)
                 .build();
