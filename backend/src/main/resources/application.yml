@@ -25,7 +25,7 @@ logging:
     jdbc:
       sqlonly: info
       sqltiming: off
-      resultsettable: info
+      resultsettable: off
       audit: off
       resultset: off
       connection: off

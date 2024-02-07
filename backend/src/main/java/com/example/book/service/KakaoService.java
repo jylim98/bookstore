@@ -1,7 +1,9 @@
 package com.example.book.service;
 
+import com.example.book.common.error.CustomException;
 import com.example.book.domain.OAuthMember;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -11,10 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import static com.example.book.common.error.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class KakaoService {
 
     private final RestTemplate restTemplate;
@@ -46,14 +52,23 @@ public class KakaoService {
 
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, httpHeaders);
 
-        ResponseEntity<String> accessTokenResponse = restTemplate.exchange(
-                TOKEN_URL,
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
-        JSONObject jsonObject = new JSONObject(accessTokenResponse.getBody());
-        return jsonObject.getString("access_token");
+        try {
+            ResponseEntity<String> accessTokenResponse = restTemplate.exchange(
+                    TOKEN_URL,
+                    HttpMethod.POST,
+                    kakaoTokenRequest,
+                    String.class
+            );
+
+            JSONObject jsonObject = new JSONObject(accessTokenResponse.getBody());
+            return jsonObject.getString("access_token");
+
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode().toString().equals("400 BAD_REQUEST")) {
+                throw new CustomException(INVALID_AUTH_CODE);
+            }
+            throw new CustomException(UNKNOWN_ERROR);
+        }
     }
 
     /**

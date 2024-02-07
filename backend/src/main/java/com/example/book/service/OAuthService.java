@@ -33,6 +33,7 @@ public class OAuthService {
 
         //처음 로그인 한 회원이면 데이터베이스에 사용자 저장
         if (findMember == null) {
+            log.info("************* 첫 로그인 데이터베이스 사용자 정보 저장 *************");
             oAuthMapper.insertMember(oAuthMember);
             return oAuthMember.getId();
         } else {
