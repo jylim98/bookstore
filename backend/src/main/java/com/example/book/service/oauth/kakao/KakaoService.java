@@ -1,7 +1,8 @@
-package com.example.book.service;
+package com.example.book.service.oauth.kakao;
 
 import com.example.book.common.error.CustomException;
 import com.example.book.domain.OAuthMember;
+import com.example.book.service.oauth.OAuthProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
@@ -23,6 +24,8 @@ import static com.example.book.common.error.ErrorCode.*;
 @Log4j2
 public class KakaoService {
 
+    private static final String GRANT_TYPE = "authorization_code";
+
     private final RestTemplate restTemplate;
 
     @Value("${oauth.kakao.client_id}")
@@ -33,8 +36,6 @@ public class KakaoService {
 
     @Value("${oauth.kakao.api_url}")
     private String API_URL;
-
-    private static final String GRANT_TYPE = "authorization_code";
 
     /**
      * 카카오 엑세스 토큰 발급
@@ -101,6 +102,7 @@ public class KakaoService {
                 .email(kakao_account.getString("email"))
                 .nickname(profile.getString("nickname"))
                 .profileImageUrl(profile.getString("profile_image_url"))
+                .oAuthProvider(OAuthProvider.KAKAO)
                 .build();
     }
 }

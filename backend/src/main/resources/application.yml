@@ -15,6 +15,11 @@ oauth:
     client_id: 3c74a5584f931b80b80464d2cd6c09bd
     token_url: https://kauth.kakao.com/oauth/token
     api_url: https://kapi.kakao.com/v2/user/me
+  naver:
+    client_secret: hepTWRHs0m
+    client_id: Otgsk9fo6YTDkWlUkR3z
+    token_url: https://nid.naver.com/oauth2.0/token
+    api_url: https://openapi.naver.com/v1/nid/me
 
 jwt:
   secret-key: Z29nby10bS1zZXJ2ZXItZGxyamVvYW9yb3JodG9kZ290c3Atam9vbmdhbmduaW0teWVvbHNpbWhpaGFsZ2VveW8K

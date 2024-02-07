@@ -1,8 +1,10 @@
-package com.example.book.service;
+package com.example.book.service.oauth;
 
 import com.example.book.domain.AuthToken;
 import com.example.book.domain.OAuthMember;
 import com.example.book.mapper.OAuthMapper;
+import com.example.book.service.oauth.naver.NaverService;
+import com.example.book.service.oauth.kakao.KakaoService;
 import com.example.book.util.jwt.AuthTokenUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,14 +16,26 @@ import org.springframework.stereotype.Service;
 public class OAuthService {
 
     private final KakaoService kakaoService;
+    private final NaverService naverService;
     private final AuthTokenUtils authTokenUtils;
     private final OAuthMapper oAuthMapper;
 
-    public AuthToken login(String code) {
+    public AuthToken loginByKakao(String code) {
         String accessToken = kakaoService.getAccessToken(code);
         OAuthMember oAuthMember = kakaoService.getUserInfo(accessToken);
 
         Long memberId = findOrCreateMember(oAuthMember);
+        log.info("사용자 식별 값 결과 : {}", memberId);
+
+        return authTokenUtils.generate(memberId);
+    }
+
+    public AuthToken loginByNaver(String code, String state) {
+        String accessToken = naverService.getAccessToken(code, state);
+        OAuthMember oAuthMember = naverService.getUserInfo(accessToken);
+
+        Long memberId = findOrCreateMember(oAuthMember);
+
         log.info("사용자 식별 값 결과 : {}", memberId);
 
         return authTokenUtils.generate(memberId);

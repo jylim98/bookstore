@@ -1,9 +1,7 @@
 package com.example.book.controller;
 
 import com.example.book.domain.AuthToken;
-import com.example.book.domain.OAuthMember;
-import com.example.book.service.KakaoService;
-import com.example.book.service.OAuthService;
+import com.example.book.service.oauth.OAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +15,12 @@ public class OAuthController {
 
     private final OAuthService oAuthService;
     @PostMapping("kakao")
-    public AuthToken login(@RequestParam(name = "code") String code) {
-        return oAuthService.login(code);
+    public AuthToken kakaoLogin(@RequestParam(name = "code") String code) {
+        return oAuthService.loginByKakao(code);
+    }
+
+    @PostMapping("naver")
+    public AuthToken naverLogin(@RequestParam(name = "code") String code, @RequestParam(name = "state") String state) {
+        return oAuthService.loginByNaver(code, state);
     }
 }
